@@ -4,6 +4,8 @@ const express = require('express');
 const { connect } = require("http2");
 const mongoose = require("mongoose");
 const app = express();
+const methodOverride = require("method-override"); 
+const morgan = require("morgan"); 
 const path = require("path");
 
 //controllers
@@ -20,6 +22,8 @@ mongoose.connection.on("connected", () => {
 //midlleware
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride("_method")); 
+app.use(morgan("dev")); 
 
 //Get / Routs
 app.get('/',(req,res)=>{
